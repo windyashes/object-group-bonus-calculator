@@ -53,30 +53,17 @@ function calculateIndividualEmployeeBonus( employee ) {
   
  let bp = 0;
  let rating = employee.reviewRating;
-  if(rating<=2){
-    bp = 0;
-  } else {
-  if (rating > 2){
-    bp += 4;
+  if(rating<=2){ bp = 0; } 
+  else {
+    if (rating > 2){ bp += 4; }
+    if (rating > 3){ bp += 2; }
+    if (rating > 4){ bp += 4; } // if reviewRating is 5, it will end up having the +%10
+    if (employee.employeeNumber.length < 5){ bp += 5; }
+    if (employee.annualSalary > 65000){ bp -= 1; }
   }
-  if (rating > 3){
-    bp += 2;
-  }
-  if (rating > 4){
-    bp += 4;
-  }
-  if (employee.employeeNumber.length < 5){
-    bp += 5;
-  }
-  if (employee.annualSalary > 65000){
-    bp -= 1;
-  }
-  }
-  if(bp > 13){
-    bp = 13;
-  } else if (bp < 0){
-    bp = 0;
-  }
+  if(bp > 13){ bp = 13; } 
+    else 
+  if (bp < 0){ bp = 0; }
   bp = bp/100;
   let bonus = employee.annualSalary * bp;
   bonus -= bonus % 1;
